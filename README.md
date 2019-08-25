@@ -2,7 +2,7 @@
 
 Micropython producer/subscriber event system with optional threading
 
-**_ Note that this package is early stages so could have undocumented bugs_**
+**Note that this package is early stages so could have undocumented bugs.**
 
 ## Installation
 
