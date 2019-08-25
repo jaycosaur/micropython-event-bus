@@ -1,4 +1,4 @@
-from producer import Producer
+from .producer import Producer
 
 
 def subscribe(producer: Producer):

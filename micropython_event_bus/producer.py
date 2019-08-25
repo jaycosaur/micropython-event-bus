@@ -1,4 +1,7 @@
-import _thread
+try:
+    import _thread
+except ModuleNotFoundError:
+    _thread = None
 
 
 class Producer:
@@ -12,6 +15,10 @@ class Producer:
     """
 
     def __init__(self, *args, name=None, validation=None, as_threads=False):
+        if as_threads and not _thread:
+            raise NotImplementedError(
+                'threading is not available in this distribution')
+
         self.__handlers = []
         self.__name = name
         self.__validation = validation
@@ -45,7 +52,7 @@ class Producer:
         if self.__validation:
             self.__validation(*args, **kwargs)
         for handler in self.__handlers:
-            if self.__as_threads:
+            if self.__as_threads and _thread:
                 _thread.start_new_thread(handler, args, kwargs)
             else:
                 handler(*args, **kwargs)

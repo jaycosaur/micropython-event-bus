@@ -1,12 +1,21 @@
-import producer
-import subscriber
+from micropython_event_bus import Producer, subscribe
 
 try:
     import utime as time
 except ModuleNotFoundError:
     import time
 
-message_bus = producer.Producer(name="my message bus", as_threads=True)
+
+def is_int_or_float(*args, **kwargs):
+    for arg in args:
+        if type(arg) == int or type(arg) == float:
+            pass
+        else:
+            raise ValueError('arg is not a float or int')
+
+
+message_bus = Producer(
+    name="my message bus", as_threads=True, validation=is_int_or_float)
 
 
 def simple_logger(func):
@@ -18,16 +27,16 @@ def simple_logger(func):
     return with_logger
 
 
-@subscriber.subscribe(message_bus)
+@subscribe(message_bus)
 @simple_logger
 def handler_1(*args, **kwargs):
     time.sleep(3)
 
 
-@subscriber.subscribe(message_bus)
+@subscribe(message_bus)
 @simple_logger
 def handler_2(*args, **kwargs):
     time.sleep(2)
 
 
-message_bus(10, some="me")
+message_bus(123, some="me")
