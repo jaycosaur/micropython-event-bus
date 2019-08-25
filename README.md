@@ -4,7 +4,7 @@ Micropython producer/subscriber event system with optional threading
 
 **Note that this package is early stages so could have undocumented bugs.**
 
-![The not-so-magic school bus](https://github.com/jaycosaur/micropython-event-bus/master/images/event-bus.png)
+![The not-so-magic school bus](https://github.com/jaycosaur/micropython-event-bus/blob/master/images/event-bus.png)
 
 ## Installation
 
