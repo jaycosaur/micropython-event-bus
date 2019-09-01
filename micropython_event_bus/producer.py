@@ -12,6 +12,7 @@ class Producer:
     :params name: name of producer
     :params validation: a function which will accept arguments passed into emit and check values / types raising a ValueError if incorrect type
     :params as_threads: option to run handlers as threads
+    :raises NotImplementedError if micro-python version does not implement _thread and as_threads keyword set to True.
     """
 
     def __init__(self, *args, name=None, validation=None, as_threads=False):
