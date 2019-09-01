@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="micropython_event_bus",
-    version="0.0.2",
+    version="0.0.4",
     author="Jacob Richter",
     author_email="jaycorichter@gmail.com",
     description="Micropython compatible producer/subscriber event bus system with optional threading.",
