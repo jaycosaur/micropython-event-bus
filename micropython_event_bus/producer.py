@@ -40,15 +40,31 @@ class Producer:
 
     # public methods
 
-    def subscribe(self, handler_func, **kwargs):
+    def subscribe(self, handler_func):
+        """
+        Subscribe a function as a callback to the producer.
+        :params handler_func: a callback function that will be invoked 
+        when a value is sent to the emit method. Function cannot be a lambda.
+        :raises ValueError if handler is a lambda or already subscribed.
+        """
         if handler_func.__name__ == '<lambda>':
             raise ValueError('handler cannot be a lambda function')
         return self._add_handler(handler_func)
 
-    def unsubscribe(self, handler_func, **kwargs):
+    def unsubscribe(self, handler_func):
+        """
+        Unsubscribe a callback from the producer.
+        :raises ValueError if handler is not already subscribed.
+        """
         return self._remove_handler(handler_func)
 
     def emit(self, *args, **kwargs):
+        """
+        Send arguments and keyword arguments to subscribed functions.
+        Arguments are first passed through the validation function and then
+        passed sequentially to each subscribed callback.
+        If as_threads is set to True callbacks are started as separate threads.
+        """
         if self.__validation:
             self.__validation(*args, **kwargs)
         for handler in self.__handlers:
